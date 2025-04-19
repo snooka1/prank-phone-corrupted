@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>System Error</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      background: black;
+      color: red;
+      font-family: monospace;
+      height: 100%;
+      overflow: hidden;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    h1 {
+      font-size: 2em;
+      animation: flicker 0.1s infinite;
+    }
+    p {
+      font-size: 1em;
+      margin-top: 1rem;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>⚠️ DEVICE CORRUPTED ⚠️</h1>
+  <p>All data has been compromised.</p>
+  <p>System failure in: <span id="countdown">10</span> seconds...</p>
+  <p>Contact Apple Support immediately.</p>
+  <script>
+    // Vibration loop (if supported)
+    if ("vibrate" in navigator) {
+      setInterval(() => navigator.vibrate([200, 100, 200]), 1000);
+    }
+
+    // Countdown
+    let counter = 10;
+    const countdown = document.getElementById('countdown');
+    const interval = setInterval(() => {
+      counter--;
+      countdown.textContent = counter;
+      if (counter <= 0) {
+        countdown.textContent = "0";
+        clearInterval(interval);
+        document.body.innerHTML += '<p><strong>System destroyed.</strong></p>';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
